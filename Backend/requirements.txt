@@ -3,3 +3,4 @@ uvicorn
 clang
 aiofiles
 python-multipart
+astunparse
