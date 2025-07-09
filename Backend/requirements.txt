@@ -87,4 +87,4 @@ uvicorn==0.34.3
 xxhash==3.5.0
 yarl==1.20.1
 zipp==3.23.0
-python-3.10.0
+python-3.11.6
