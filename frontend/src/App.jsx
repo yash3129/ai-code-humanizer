@@ -17,7 +17,7 @@ function App() {
     setCopied(false)
 
     try {
-      const res = await fetch("http://localhost:8000/humanize", {
+      const res = await fetch("https://code-humanizer-backend.onrender.com/humanize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
