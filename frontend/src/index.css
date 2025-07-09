@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+    }
+
+    .container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    textarea {
+    width: 100%;
+    font-family: monospace;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    }
+
+    .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    }
+
+    button {
+    padding: 10px 15px;
+    font-weight: bold;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    }
+
+    pre {
+    background: #eee;
+    padding: 15px;
+    white-space: pre-wrap;
+    border-radius: 8px;
+}

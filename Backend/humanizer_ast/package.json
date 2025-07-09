@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/generator": "^7.28.0",
+    "@babel/parser": "^7.28.0",
+    "escodegen": "^2.1.0",
+    "esprima": "^4.0.1"
+  },
+  "name": "humanizer_ast",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js_humanizer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

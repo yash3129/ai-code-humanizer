@@ -1,0 +1,109 @@
+body {
+margin: 0;
+padding: 0;
+background-color: #f0f2f5;
+}
+
+.container {
+max-width: 900px;
+margin: 0 auto;
+padding: 20px;
+font-family: sans-serif;
+min-height: 100vh;
+background: rgba(255, 255, 255, 0.7);
+backdrop-filter: blur(12px);
+border-radius: 12px;
+box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+color: #000000;
+transition: background-color 0.3s, color 0.3s;
+}
+
+.container.dark {
+background: rgba(30, 30, 30, 0.6);
+backdrop-filter: blur(12px);
+color: #ffffff;
+}
+
+.editor-box {
+border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 8px;
+margin-bottom: 10px;
+overflow: hidden;
+background: rgba(255, 255, 255, 0.2);
+backdrop-filter: blur(6px);
+}
+
+.controls {
+margin-top: 1rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 1rem;
+flex-wrap: wrap;
+}
+
+select,
+button {
+padding: 10px 16px;
+font-size: 14px;
+border-radius: 6px;
+border: 1px solid #ccc;
+cursor: pointer;
+transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s;
+}
+
+button:disabled {
+opacity: 0.6;
+cursor: not-allowed;
+}
+
+button:hover:not(:disabled),
+select:hover {
+background-color: #0069d9;
+color: white;
+transform: translateY(-1px);
+}
+
+.spinner {
+padding: 12px;
+font-style: italic;
+color: #888;
+}
+
+.copy-bar {
+display: flex;
+justify-content: flex-end;
+margin: 10px 0;
+}
+
+.copy-bar button {
+background-color: #007bff;
+border: none;
+color: white;
+padding: 6px 12px;
+border-radius: 4px;
+cursor: pointer;
+font-size: 14px;
+transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.copy-bar button:hover {
+background-color: #0056b3;
+transform: scale(1.05);
+}
+
+h3 {
+margin-top: 30px;
+margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+.controls {
+flex-direction: column;
+align-items: stretch;
+}
+
+.copy-bar {
+justify-content: center;
+}
+}

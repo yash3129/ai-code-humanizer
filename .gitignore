@@ -1,0 +1,13 @@
+node_modules/
+__pycache__/
+*.pyc
+.env
+*.log
+.vscode/
+*.db
+.DS_Store
+dist/
+build/
+input.js
+test.cpp
+humanizer_ast/Test.java
