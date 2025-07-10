@@ -5,9 +5,14 @@ from humanizer import humanize_code
 
 app = FastAPI()
 
+origins = [
+    "https://ai-code-humanizer.vercel.app",
+    "http://localhost:5173"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
