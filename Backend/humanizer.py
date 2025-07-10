@@ -52,6 +52,29 @@ def humanize_python(code: str) -> str:
     with_docstring = generate_docstrings(with_comments)
     return with_docstring
 
+def humanize_js(code: str) -> str:
+    replacements = {
+        "x": "totalSum",
+        "y": "countVal",
+        "z": "loopIndex",
+        "a": "valueA",
+        "b": "valueB",
+        "temp": "tempResult",
+        "i": "index"
+    }
+    renamed = rename_variables(code, replacements)
+    commented = add_inline_comments(renamed, "js")
+
+    pattern = r'function\s+(\w+)\s*\((.*?)\)\s*\{'
+    matches = list(re.finditer(pattern, commented))
+    for match in matches:
+        func = match.group(1)
+        params = match.group(2)
+        doc = f"// Function: {func}\n// Parameters: {params}\n"
+        commented = commented.replace(match.group(0), doc + match.group(0), 1)
+
+    return commented
+
 def humanize_code(code: str, language: str) -> str:
     language = language.lower()
 
@@ -83,10 +106,7 @@ def humanize_code(code: str, language: str) -> str:
         return result.stdout.strip()
 
     elif language in ["javascript", "js"]:
-        with open("input.js", "w") as f:
-            f.write(code)
-        result = subprocess.run(["node", "humanizer_ast/js_humanizer.js", "input.js"], capture_output=True, text=True)
-        return result.stdout if result.returncode == 0 else "# Error: JavaScript humanization failed"
+        return humanize_js(code)
 
     elif language in ["cpp", "c++"]:
         with open("test.cpp", "w", encoding="utf-8") as f:
