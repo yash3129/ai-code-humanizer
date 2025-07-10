@@ -9,54 +9,64 @@ const renameMap = {
     z: "index",
     a: "valueA",
     b: "valueB"
-};
+    };
 
-function humanizeJS(code) {
-    let ast = esprima.parseScript(code, { comment: true, loc: true, range: true, tokens: true });
+    function humanizeJS(code) {
+    let ast;
+    try {
+        ast = esprima.parseScript(code, {
+        comment: true,
+        loc: true,
+        range: true,
+        tokens: true
+        });
+    } catch (e) {
+        return `// Error parsing code: ${e.message}`;
+    }
 
     const comments = [];
 
     function renameIdentifiers(node) {
         if (Array.isArray(node)) {
-            node.forEach(renameIdentifiers);
+        node.forEach(renameIdentifiers);
         } else if (node && typeof node === "object") {
-            if (node.type === "Identifier" && renameMap[node.name]) {
-                const old = node.name;
-                const renamed = renameMap[old];
-                node.name = renamed;
+        if (node.type === "Identifier" && renameMap[node.name]) {
+            const old = node.name;
+            const renamed = renameMap[old];
+            node.name = renamed;
 
-                if (!node._commented) {
-                    comments.push({
-                        type: "Line",
-                        value: ` Renamed '${old}' to '${renamed}'`,
-                        range: node.range,
-                    });
-                    node._commented = true;
-                }
+            if (!node._commented) {
+            comments.push({
+                type: "Line",
+                value: ` Renamed '${old}' to '${renamed}'`,
+                range: node.range,
+            });
+            node._commented = true;
             }
+        }
 
-            if (node.type === "FunctionDeclaration") {
-                const funcName = node.id ? node.id.name : "unknown";
-                comments.push({
-                    type: "Line",
-                    value: ` Function: ${funcName}\n Description: TODO - Describe this function`,
-                    range: node.range,
-                });
-            }
+        if (node.type === "FunctionDeclaration") {
+            const funcName = node.id ? node.id.name : "unknown";
+            comments.push({
+            type: "Line",
+            value: ` Function: ${funcName}\n Description: TODO - Describe this function`,
+            range: node.range,
+            });
+        }
 
-            if (node.type === "ReturnStatement") {
-                comments.push({
-                    type: "Line",
-                    value: " Return final result",
-                    range: node.range,
-                });
-            }
+        if (node.type === "ReturnStatement") {
+            comments.push({
+            type: "Line",
+            value: " Return final result",
+            range: node.range,
+            });
+        }
 
-            for (let key in node) {
-                if (node[key] && typeof node[key] === "object") {
-                    renameIdentifiers(node[key]);
-                }
+        for (let key in node) {
+            if (node[key] && typeof node[key] === "object") {
+            renameIdentifiers(node[key]);
             }
+        }
         }
     }
 
@@ -67,18 +77,23 @@ function humanizeJS(code) {
     return escodegen.generate(ast, {
         comment: true,
         format: {
-            indent: {
-                style: "  "
-            }
+        indent: {
+            style: "  "
+        }
         }
     });
-}
+    }
 
-if (require.main === module) {
-    const inputFile = process.argv[2];
-    const inputCode = fs.readFileSync(inputFile, "utf-8");
-    const output = humanizeJS(inputCode);
-    console.log(output);
+    if (require.main === module) {
+    try {
+        const inputFile = process.argv[2];
+        const inputCode = fs.readFileSync(inputFile, "utf-8");
+        const output = humanizeJS(inputCode);
+        console.log(output);
+    } catch (err) {
+        console.error("// JavaScript humanizer crashed:", err.message);
+        process.exit(1);
+    }
 }
 
 module.exports = { humanizeJS };
